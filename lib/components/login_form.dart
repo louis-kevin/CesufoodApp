@@ -13,63 +13,58 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  FocusNode focusNode = new FocusNode();
 
   @override
   Widget build(BuildContext context) {
     return new Form(
       key: _formKey,
-      child: new SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: new Column(
-          children: <Widget>[
-            new RaFormField(
-              color: 0xFFC0C4CC,
+      child: new Column(
+        children: <Widget>[
+          new RaFormField(
+            color: 0xFFC0C4CC,
+          ),
+          new SenhaFormField(
+            color: 0xFFC0C4CC,
+          ),
+          new ButtomSubmitAuth(
+            text: 'LOGIN',
+            onTap: () {
+              if (_formKey.currentState.validate()) {
+                // If the form is valid, we want to show a Snackbar
+                Scaffold.of(context).showSnackBar(
+                    new SnackBar(content: new Text('Processing Data')));
+              } else {
+                setState(() {});
+              }
+            },
+          ),
+          new Center(
+            child: new Text(
+              'Esqueceu a senha?',
+              style: new TextStyle(color: Color(0xFFC0C4CC)),
             ),
-            new SenhaFormField(
-              color: 0xFFC0C4CC,
-              focusNode: focusNode,
+          ),
+          new Padding(
+            padding: const EdgeInsets.symmetric(vertical: 28.5),
+            child: new Divider(
+              height: 10.0,
+              color: Color(0xFFC0C4CC),
             ),
-            new ButtomSubmitAuth(
-              text: 'LOGIN',
-              onTap: () {
-                if (_formKey.currentState.validate()) {
-                  // If the form is valid, we want to show a Snackbar
-                  Scaffold.of(context).showSnackBar(
-                      new SnackBar(content: new Text('Processing Data')));
-                } else {
-                  setState(() {});
-                }
-              },
-            ),
-            new Center(
-              child: new Text(
-                'Esqueceu a senha?',
-                style: new TextStyle(color: Color(0xFFC0C4CC)),
-              ),
-            ),
-            new Padding(
-              padding: const EdgeInsets.symmetric(vertical: 28.5),
-              child: new Divider(
-                height: 10.0,
-                color: Color(0xFFC0C4CC),
-              ),
-            ),
-            new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                new Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: new Text(
-                    'Não tem conta?',
-                    style: new TextStyle(color: Color(0xFFC0C4CC)),
-                  ),
+          ),
+          new Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Padding(
+                padding: const EdgeInsets.only(right: 5.0),
+                child: new Text(
+                  'Não tem conta?',
+                  style: new TextStyle(color: Color(0xFFC0C4CC)),
                 ),
-                new Text('Cadastre-se')
-              ],
-            ),
-          ],
-        ),
+              ),
+              new Text('Cadastre-se')
+            ],
+          ),
+        ],
       ), // We'll build this out in the next steps!
     );
   }
