@@ -1,10 +1,12 @@
+import 'package:cesufood_app/components/ensure_visible.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class SenhaFormField extends StatefulWidget {
   final color;
+  final focusNode;
 
-  const SenhaFormField({Key key, this.color = 0xFFC0C4CC}) : super(key: key);
+  const SenhaFormField({Key key, this.color = 0xFFC0C4CC, this.focusNode}) : super(key: key);
 
   @override
   _SenhaFormFieldState createState() => new _SenhaFormFieldState();
@@ -12,27 +14,33 @@ class SenhaFormField extends StatefulWidget {
 
 class _SenhaFormFieldState extends State<SenhaFormField> {
   var fieldSenhaError = false;
+
   @override
   Widget build(BuildContext context) {
-    return new TextFormField(
-      validator: (value) {
-        if (value.length < 6) {
-          fieldSenhaError = true;
-          return 'A senha precisa ter pelo menos 6 caracteries';
-        }
-        fieldSenhaError = false;
-      },
-      style: new TextStyle(color: Color(widget.color)),
-      decoration: new InputDecoration(
-        icon: new Icon(
-          Icons.lock,
-          color: Color(fieldSenhaError ? 0xFFFF4444 : widget.color),
+    return new EnsureVisibleWhenFocused(
+      duration: new Duration(milliseconds: 300),
+      focusNode: widget.focusNode,
+      child: new TextFormField(
+        validator: (value) {
+          if (value.length < 6) {
+            fieldSenhaError = true;
+            return 'A senha precisa ter pelo menos 6 caracteries';
+          }
+          fieldSenhaError = false;
+        },
+        focusNode: widget.focusNode,
+        style: new TextStyle(color: Color(widget.color)),
+        decoration: new InputDecoration(
+          icon: new Icon(
+            Icons.lock,
+            color: Color(fieldSenhaError ? 0xFFFF4444 : widget.color),
+          ),
+          labelText: 'Senha',
+          labelStyle: new TextStyle(
+              color: Color(fieldSenhaError ? 0xFFFF4444 : widget.color)),
+          counterStyle: new TextStyle(
+              color: Color(fieldSenhaError ? 0xFFFF4444 : widget.color)),
         ),
-        labelText: 'Senha',
-        labelStyle: new TextStyle(
-            color: Color(fieldSenhaError ? 0xFFFF4444 : widget.color)),
-        counterStyle: new TextStyle(
-            color: Color(fieldSenhaError ? 0xFFFF4444 : widget.color)),
       ),
     );
   }
