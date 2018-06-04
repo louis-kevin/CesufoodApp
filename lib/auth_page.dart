@@ -59,16 +59,6 @@ class _AuthPageState extends State<AuthPage> {
             child: new LoginForm()
           ),
         ),
-        new Container(
-          height: 70.0,
-          width: double.infinity,
-          decoration: new BoxDecoration(color: Colors.blue),
-        ),
-        new Container(
-          height: 70.0,
-          width: double.infinity,
-          decoration: new BoxDecoration(color: Colors.orange),
-        )
       ],
     );
   }
