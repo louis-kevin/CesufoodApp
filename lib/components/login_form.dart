@@ -1,10 +1,9 @@
-import 'dart:async';
-
 import 'package:cesufood_app/components/form/auth/ButtonSubmitAuth.dart';
 import 'package:cesufood_app/components/form/auth/RaFormField.dart';
 import 'package:cesufood_app/components/form/auth/SenhaFormField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -13,6 +12,16 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  final TextEditingController inputRAController = new MaskedTextController(mask: '00000000');
+  final TextEditingController inputSenhaController = new TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the Widget is disposed
+    inputRAController.dispose();
+    inputSenhaController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +31,11 @@ class _LoginFormState extends State<LoginForm> {
         children: <Widget>[
           new RaFormField(
             color: 0xFFC0C4CC,
+            controller: inputRAController,
           ),
           new SenhaFormField(
             color: 0xFFC0C4CC,
+            controller: inputSenhaController
           ),
           new ButtomSubmitAuth(
             text: 'LOGIN',
@@ -32,10 +43,9 @@ class _LoginFormState extends State<LoginForm> {
               if (_formKey.currentState.validate()) {
                 // If the form is valid, we want to show a Snackbar
                 Scaffold.of(context).showSnackBar(
-                    new SnackBar(content: new Text('Processing Data')));
-              } else {
-                setState(() {});
+                    new SnackBar(content: new Text(inputRAController.text)));
               }
+              setState(() {});
             },
           ),
           new Center(

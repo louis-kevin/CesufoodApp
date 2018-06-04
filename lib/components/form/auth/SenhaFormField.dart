@@ -4,8 +4,9 @@ import 'package:flutter/widgets.dart';
 
 class SenhaFormField extends StatefulWidget {
   final color;
+  final TextEditingController controller;
 
-  const SenhaFormField({Key key, this.color = 0xFFC0C4CC}) : super(key: key);
+  const SenhaFormField({Key key, this.color = 0xFFC0C4CC, this.controller}) : super(key: key);
 
   @override
   _SenhaFormFieldState createState() => new _SenhaFormFieldState();
@@ -18,9 +19,10 @@ class _SenhaFormFieldState extends State<SenhaFormField> {
   @override
   Widget build(BuildContext context) {
     return new EnsureVisibleWhenFocused(
-      duration: new Duration(milliseconds: 300),
+      duration: new Duration(milliseconds: 100),
       focusNode: focusNode,
       child: new TextFormField(
+        controller: widget.controller,
         validator: (value) {
           if (value.length < 6) {
             fieldSenhaError = true;
@@ -29,6 +31,7 @@ class _SenhaFormFieldState extends State<SenhaFormField> {
           fieldSenhaError = false;
         },
         focusNode: focusNode,
+        obscureText: true,
         style: new TextStyle(color: Color(widget.color)),
         decoration: new InputDecoration(
           icon: new Icon(

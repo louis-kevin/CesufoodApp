@@ -24,7 +24,7 @@ class _AuthPageState extends State<AuthPage> {
         ),
       ),
       child: new SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 36.0),
         child: new Column(
           children: <Widget>[
             new Container(
@@ -39,8 +39,8 @@ class _AuthPageState extends State<AuthPage> {
                 children: <Widget>[
                   new Padding(
                     padding: const EdgeInsets.only(
-                      left: 120.0,
-                      right: 120.0,
+                      left: 90.0,
+                      right: 90.0,
                       top: 26.0,
                       bottom: 10.0,
                     ),
