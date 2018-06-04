@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5cd8bb9e-7ce3-4067-a4de-056c3752df64" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/lib/components/form/auth/RaFormField.dart" afterPath="$PROJECT_DIR$/lib/components/form/auth/RaFormField.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/components/form/auth/SenhaFormField.dart" afterPath="$PROJECT_DIR$/lib/components/form/auth/SenhaFormField.dart" />
-      <change beforePath="$PROJECT_DIR$/lib/components/login_form.dart" afterPath="$PROJECT_DIR$/lib/components/login_form.dart" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
     </list>
     <ignored path="$PROJECT_DIR$/.dart_tool/" />
     <ignored path="$PROJECT_DIR$/.idea/" />
@@ -43,7 +41,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login_form.dart" pinned="false" current-in-tab="true">
+      <file leaf-file-name="login_form.dart" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/components/login_form.dart">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
@@ -51,6 +49,16 @@
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -139,6 +147,7 @@
         <option value="$PROJECT_DIR$/lib/components/form/auth/RaFormField.dart" />
         <option value="$PROJECT_DIR$/lib/components/form/auth/SenhaFormField.dart" />
         <option value="$PROJECT_DIR$/lib/components/login_form.dart" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -173,24 +182,6 @@
             <path>
               <item name="CesufoodApp" type="b2602c69:ProjectViewProjectNode" />
               <item name="CesufoodApp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CesufoodApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CesufoodApp" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CesufoodApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CesufoodApp" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CesufoodApp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CesufoodApp" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="auth" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -729,6 +720,14 @@
           <folding>
             <element signature="e#0#20#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
