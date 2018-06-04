@@ -1,0 +1,42 @@
+name: cesufood_app
+description: A new Flutter project.
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://www.dartlang.org/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo.png
+
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: fonts/Roboto-Black.ttf
+        - asset: fonts/Roboto-BlackItalic.ttf
+        - asset: fonts/Roboto-Bold.ttf
+        - asset: fonts/Roboto-BoldItalic.ttf
+        - asset: fonts/Roboto-Italic.ttf
+        - asset: fonts/Roboto-Light.ttf
+        - asset: fonts/Roboto-LightItalic.ttf
+        - asset: fonts/Roboto-Medium.ttf
+        - asset: fonts/Roboto-MediumItalic.ttf
+        - asset: fonts/Roboto-Regular.ttf
+        - asset: fonts/Roboto-Thin.ttf
+        - asset: fonts/Roboto-ThinItalic.ttf
+
+
