@@ -1,8 +1,6 @@
-import 'dart:math';
-
-import 'package:cesufood_app/components/cadsatro_form.dart';
-import 'package:cesufood_app/components/esqueci_senha_form.dart';
-import 'package:cesufood_app/components/login_form.dart';
+import 'package:cesufood_app/components/form/auth/cadasatro_form.dart';
+import 'package:cesufood_app/components/form/auth/esqueci_senha_form.dart';
+import 'package:cesufood_app/components/form/auth/login_form.dart';
 import 'package:cesufood_app/components/logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -32,7 +30,7 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
 
     _animationLoginController = new AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 200),
     );
 
     animationFormLogin = new Tween(
@@ -49,7 +47,7 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
 
     _animationCadastroController = new AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 200),
     );
 
     animationFormCadastro = new Tween(
@@ -63,7 +61,7 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
 
     _animationEsqueciSenhaController = new AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 200),
     );
 
     animationFormEsqueciSenha = new Tween(

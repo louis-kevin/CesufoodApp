@@ -25,7 +25,6 @@ class _ButtomSubmitAuthState extends State<ButtomSubmitAuth> {
         child:new Text(
           widget.text,
         ),
-
       ),
     );
   }
