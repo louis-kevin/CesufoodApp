@@ -1,6 +1,7 @@
-import 'package:cesufood_app/components/form/auth/ButtonSubmitAuth.dart';
-import 'package:cesufood_app/components/form/auth/RaFormField.dart';
-import 'package:cesufood_app/components/form/auth/SenhaFormField.dart';
+import 'package:cesufood_app/auth_page/components/ButtonSubmitAuth.dart';
+import 'package:cesufood_app/auth_page/components/RaFormField.dart';
+import 'package:cesufood_app/auth_page/components/SenhaFormField.dart';
+import 'package:cesufood_app/auth_page/components/TextButtonAuth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
@@ -44,7 +45,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           new SenhaFormField(
               color: 0xFFC0C4CC, controller: inputSenhaController),
-          new ButtomSubmitAuth(
+          new ButtonSubmitAuth(
             text: 'LOGIN',
             onTap: () {
               if (_formKey.currentState.validate()) {
@@ -55,16 +56,7 @@ class _LoginFormState extends State<LoginForm> {
               setState(() {});
             },
           ),
-          new FlatButton(
-            color: Colors.transparent,
-            highlightColor: Colors.transparent,
-            splashColor: Colors.grey.withOpacity(0.1),
-            textColor: Color(0xFFC0C4CC),
-            onPressed: () => widget.onChangePage(PAGE_ESQUECI_SENHA),
-            child: new Text(
-              'Esqueceu a senha?',
-            ),
-          ),
+          new TextButtonAuth(onPressed: () => widget.onChangePage(PAGE_ESQUECI_SENHA), firstText: 'Esqueceu a senha?'),
           new Padding(
             padding: const EdgeInsets.symmetric(vertical: 28.5),
             child: new Divider(
@@ -72,32 +64,11 @@ class _LoginFormState extends State<LoginForm> {
               color: Color(0xFFC0C4CC),
             ),
           ),
-          new Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            child: new FlatButton(
-                color: Colors.transparent,
-                highlightColor: Colors.transparent,
-                splashColor: Colors.grey.withOpacity(0.1),
-                textColor: Color(0xFFC0C4CC),
-                onPressed: () => widget.onChangePage(PAGE_CADASTRO),
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    new Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: new Text(
-                        'Não tem conta?',
-                      ),
-                    ),
-                    new Text('Cadastre-se',
-                      style: new TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-            ),
-          ),
+          new TextButtonAuth(onPressed: () => widget.onChangePage(PAGE_CADASTRO), firstText: 'Não tem conta?', secondText: 'Cadastre-se'),
         ],
       ), // We'll build this out in the next steps!
     );
   }
 }
+
+

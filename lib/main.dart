@@ -1,5 +1,4 @@
-import 'package:cesufood_app/auth_page.dart';
-import 'package:cesufood_app/main_testes.dart';
+import 'package:cesufood_app/auth_page/auth_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(new MyApp());

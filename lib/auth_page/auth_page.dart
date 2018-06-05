@@ -1,6 +1,6 @@
-import 'package:cesufood_app/components/form/auth/cadasatro_form.dart';
-import 'package:cesufood_app/components/form/auth/esqueci_senha_form.dart';
-import 'package:cesufood_app/components/form/auth/login_form.dart';
+import 'package:cesufood_app/auth_page/form/cadasatro_form.dart';
+import 'package:cesufood_app/auth_page/form/esqueci_senha_form.dart';
+import 'package:cesufood_app/auth_page/form/login_form.dart';
 import 'package:cesufood_app/components/logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';

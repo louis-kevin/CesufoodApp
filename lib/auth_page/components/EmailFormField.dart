@@ -16,6 +16,15 @@ class _EmailFormFieldState extends State<EmailFormField> {
   var fieldRaError = false;
   FocusNode focusNode = new FocusNode();
 
+  bool isEmail(String em) {
+
+    String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+    RegExp regExp = new RegExp(p);
+
+    return regExp.hasMatch(em);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new EnsureVisibleWhenFocused(
@@ -27,13 +36,17 @@ class _EmailFormFieldState extends State<EmailFormField> {
             fieldRaError = true;
             return 'Este campo é obrigatorio';
           }
+
+          if(!isEmail(value)){
+            fieldRaError = true;
+            return 'Email inválido';
+          }
           fieldRaError = false;
         },
         style: new TextStyle(
           color: Color(widget.color),
         ),
-        maxLength: 8,
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.emailAddress,
         decoration: new InputDecoration(
           icon: new Icon(
             Icons.email,

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class ButtomSubmitAuth extends StatefulWidget {
+class ButtonSubmitAuth extends StatefulWidget {
   final Function onTap;
   final String text;
 
-  const ButtomSubmitAuth({Key key, this.onTap, this.text}) : super(key: key);
+  const ButtonSubmitAuth({Key key, this.onTap, this.text}) : super(key: key);
 
   @override
-  _ButtomSubmitAuthState createState() => new _ButtomSubmitAuthState();
+  _ButtonSubmitAuthState createState() => new _ButtonSubmitAuthState();
 }
 
-class _ButtomSubmitAuthState extends State<ButtomSubmitAuth> {
+class _ButtonSubmitAuthState extends State<ButtonSubmitAuth> {
   @override
   Widget build(BuildContext context) {
     return new Padding(
