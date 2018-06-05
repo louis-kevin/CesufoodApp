@@ -1,14 +1,126 @@
+import 'dart:math';
+
+import 'package:cesufood_app/components/cadsatro_form.dart';
+import 'package:cesufood_app/components/esqueci_senha_form.dart';
 import 'package:cesufood_app/components/login_form.dart';
 import 'package:cesufood_app/components/logo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+const PAGE_LOGIN = 1;
+const PAGE_CADASTRO = 2;
+const PAGE_ESQUECI_SENHA = 3;
 
 class AuthPage extends StatefulWidget {
   @override
   _AuthPageState createState() => new _AuthPageState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
+  var page = PAGE_LOGIN;
+
+  AnimationController _animationLoginController;
+  AnimationController _animationCadastroController;
+  AnimationController _animationEsqueciSenhaController;
+  Animation<double> animationFormLogin;
+  Animation<double> animationFormCadastro;
+  Animation<double> animationFormEsqueciSenha;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationLoginController = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+
+    animationFormLogin = new Tween(
+      begin: 1.0,
+      end: 0.0,
+    ).animate(_animationLoginController);
+
+    _animationLoginController.addListener(() {
+      setState(() {});
+    });
+
+    _animationCadastroController = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+
+    animationFormCadastro = new Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_animationCadastroController);
+
+    _animationCadastroController.addListener(() {
+      setState(() {});
+    });
+
+    _animationEsqueciSenhaController = new AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+
+    animationFormEsqueciSenha = new Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_animationEsqueciSenhaController);
+
+    _animationEsqueciSenhaController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  void changePage(value) {
+    page = value;
+    switch (value) {
+      case PAGE_LOGIN:
+        if (_animationLoginController.status == AnimationStatus.completed) {
+          _animationLoginController.reverse();
+        }
+        if (_animationCadastroController.status == AnimationStatus.completed) {
+          _animationCadastroController.reverse();
+        }
+        if (_animationEsqueciSenhaController.status ==
+            AnimationStatus.completed) {
+          _animationEsqueciSenhaController.reverse();
+        }
+        break;
+      case PAGE_CADASTRO:
+        if (_animationCadastroController.status != AnimationStatus.completed) {
+          _animationCadastroController.forward();
+        }
+        if (_animationLoginController.status != AnimationStatus.completed) {
+          _animationLoginController.forward();
+        }
+        if (_animationEsqueciSenhaController.status == AnimationStatus.completed) {
+          _animationEsqueciSenhaController.reverse();
+        }
+        break;
+
+      case PAGE_ESQUECI_SENHA:
+        if (_animationEsqueciSenhaController.status != AnimationStatus.completed) {
+          _animationEsqueciSenhaController.forward();
+        }
+        if (_animationCadastroController.status == AnimationStatus.completed) {
+          _animationCadastroController.reverse();
+        }
+        if (_animationLoginController.status != AnimationStatus.completed) {
+          _animationLoginController.forward();
+        }
+        break;
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _animationLoginController.dispose();
+    _animationCadastroController.dispose();
+    _animationEsqueciSenhaController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -28,11 +140,6 @@ class _AuthPageState extends State<AuthPage> {
         child: new Column(
           children: <Widget>[
             new Container(
-              height: 24.0,
-              width: double.infinity,
-              decoration: new BoxDecoration(color: new Color(0xFF335087)),
-            ),
-            new Container(
               height: 250.0,
               width: double.infinity,
               child: new Column(
@@ -41,7 +148,7 @@ class _AuthPageState extends State<AuthPage> {
                     padding: const EdgeInsets.only(
                       left: 90.0,
                       right: 90.0,
-                      top: 26.0,
+                      top: 40.0,
                       bottom: 10.0,
                     ),
                     child: new Logo(),
@@ -72,7 +179,26 @@ class _AuthPageState extends State<AuthPage> {
                 ],
               ),
             ),
-            new LoginForm(),
+            new Stack(children: [
+              new FadeTransition(
+                opacity: animationFormLogin,
+                child: new LoginForm(
+                  onChangePage: changePage,
+                ),
+              ),
+              new FadeTransition(
+                opacity: animationFormCadastro,
+                child: new CadastroForm(
+                  onChangePage: changePage,
+                ),
+              ),
+              new FadeTransition(
+                opacity: animationFormEsqueciSenha,
+                child: new EsqueciSenhaForm(
+                  onChangePage: changePage,
+                ),
+              ),
+            ]),
           ],
         ),
       ),

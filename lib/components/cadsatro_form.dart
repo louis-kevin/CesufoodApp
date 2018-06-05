@@ -1,29 +1,32 @@
 import 'package:cesufood_app/components/form/auth/ButtonSubmitAuth.dart';
+import 'package:cesufood_app/components/form/auth/EmailFormField.dart';
 import 'package:cesufood_app/components/form/auth/RaFormField.dart';
 import 'package:cesufood_app/components/form/auth/SenhaFormField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
-const PAGE_CADASTRO = 2;
+const PAGE_LOGIN = 1;
 const PAGE_ESQUECI_SENHA = 3;
 
-class LoginForm extends StatefulWidget {
+class CadastroForm extends StatefulWidget {
   final Function onChangePage;
 
-  const LoginForm({Key key, this.onChangePage}) : super(key: key);
+  const CadastroForm({Key key, this.onChangePage}) : super(key: key);
   @override
-  _LoginFormState createState() => new _LoginFormState();
+  _CadastroFormState createState() => new _CadastroFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _CadastroFormState extends State<CadastroForm> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  final TextEditingController inputEmailController = new MaskedTextController(mask: '00000000');
   final TextEditingController inputRAController = new MaskedTextController(mask: '00000000');
   final TextEditingController inputSenhaController = new TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the Widget is disposed
+    inputEmailController.dispose();
     inputRAController.dispose();
     inputSenhaController.dispose();
     super.dispose();
@@ -35,6 +38,10 @@ class _LoginFormState extends State<LoginForm> {
       key: _formKey,
       child: new Column(
         children: <Widget>[
+          new EmailFormField(
+            color: 0xFFC0C4CC,
+            controller: inputEmailController,
+          ),
           new RaFormField(
             color: 0xFFC0C4CC,
             controller: inputRAController,
@@ -44,7 +51,7 @@ class _LoginFormState extends State<LoginForm> {
             controller: inputSenhaController
           ),
           new ButtomSubmitAuth(
-            text: 'LOGIN',
+            text: 'CADASTRAR',
             onTap: () {
               if (_formKey.currentState.validate()) {
                 // TODO Enviar Request
@@ -54,15 +61,6 @@ class _LoginFormState extends State<LoginForm> {
               setState(() {});
             },
           ),
-          new Center(
-            child: new InkWell(
-              onTap: () => widget.onChangePage(PAGE_ESQUECI_SENHA),
-              child: new Text(
-                'Esqueceu a senha?',
-                style: new TextStyle(color: Color(0xFFC0C4CC)),
-              ),
-            ),
-          ),
           new Padding(
             padding: const EdgeInsets.symmetric(vertical: 28.5),
             child: new Divider(
@@ -71,18 +69,18 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           new InkWell(
-            onTap: () => widget.onChangePage(PAGE_CADASTRO),
+            onTap: () =>  widget.onChangePage(PAGE_LOGIN),
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 new Padding(
                   padding: const EdgeInsets.only(right: 5.0),
                   child: new Text(
-                    'Não tem conta?',
+                    'Já possui conta?',
                     style: new TextStyle(color: Color(0xFFC0C4CC)),
                   ),
                 ),
-                new Text('Cadastre-se')
+                new Text('Entrar')
               ],
             ),
           ),
