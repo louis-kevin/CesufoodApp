@@ -54,9 +54,11 @@ class _LoginFormState extends State<LoginForm> {
               setState(() {});
             },
           ),
-          new Center(
+          new Material(
+            color: Colors.transparent,
             child: new InkWell(
               onTap: () => widget.onChangePage(PAGE_ESQUECI_SENHA),
+              borderRadius: new BorderRadius.circular(10.0),
               child: new Text(
                 'Esqueceu a senha?',
                 style: new TextStyle(color: Color(0xFFC0C4CC)),
@@ -70,20 +72,27 @@ class _LoginFormState extends State<LoginForm> {
               color: Color(0xFFC0C4CC),
             ),
           ),
-          new InkWell(
-            onTap: () => widget.onChangePage(PAGE_CADASTRO),
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                new Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: new Text(
-                    'Não tem conta?',
-                    style: new TextStyle(color: Color(0xFFC0C4CC)),
-                  ),
+          new Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 66.0),
+            child: new Material(
+              color: Colors.transparent,
+              child: new InkWell(
+                onTap: () => widget.onChangePage(PAGE_CADASTRO),
+                borderRadius: new BorderRadius.circular(10.0),
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new Padding(
+                      padding: const EdgeInsets.only(right: 5.0),
+                      child: new Text(
+                        'Não tem conta?',
+                        style: new TextStyle(color: Color(0xFFC0C4CC)),
+                      ),
+                    ),
+                    new Text('Cadastre-se')
+                  ],
                 ),
-                new Text('Cadastre-se')
-              ],
+              ),
             ),
           ),
         ],

@@ -29,19 +29,23 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+
     _animationLoginController = new AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
     );
 
     animationFormLogin = new Tween(
-      begin: 1.0,
+      begin: 500.0,
       end: 0.0,
     ).animate(_animationLoginController);
 
-    _animationLoginController.addListener(() {
+    animationFormLogin.addListener(() {
       setState(() {});
     });
+
+    _animationLoginController.forward();
+
 
     _animationCadastroController = new AnimationController(
       vsync: this,
@@ -49,8 +53,8 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
     );
 
     animationFormCadastro = new Tween(
-      begin: 0.0,
-      end: 1.0,
+      begin: 500.0,
+      end: 0.0,
     ).animate(_animationCadastroController);
 
     _animationCadastroController.addListener(() {
@@ -63,8 +67,8 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
     );
 
     animationFormEsqueciSenha = new Tween(
-      begin: 0.0,
-      end: 1.0,
+      begin: -500.0,
+      end: 0.0,
     ).animate(_animationEsqueciSenhaController);
 
     _animationEsqueciSenhaController.addListener(() {
@@ -76,14 +80,13 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
     page = value;
     switch (value) {
       case PAGE_LOGIN:
-        if (_animationLoginController.status == AnimationStatus.completed) {
-          _animationLoginController.reverse();
+        if (_animationLoginController.status != AnimationStatus.completed) {
+          _animationLoginController.forward();
         }
         if (_animationCadastroController.status == AnimationStatus.completed) {
           _animationCadastroController.reverse();
         }
-        if (_animationEsqueciSenhaController.status ==
-            AnimationStatus.completed) {
+        if (_animationEsqueciSenhaController.status == AnimationStatus.completed) {
           _animationEsqueciSenhaController.reverse();
         }
         break;
@@ -91,8 +94,8 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
         if (_animationCadastroController.status != AnimationStatus.completed) {
           _animationCadastroController.forward();
         }
-        if (_animationLoginController.status != AnimationStatus.completed) {
-          _animationLoginController.forward();
+        if (_animationLoginController.status == AnimationStatus.completed) {
+          _animationLoginController.reverse();
         }
         if (_animationEsqueciSenhaController.status == AnimationStatus.completed) {
           _animationEsqueciSenhaController.reverse();
@@ -106,8 +109,8 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
         if (_animationCadastroController.status == AnimationStatus.completed) {
           _animationCadastroController.reverse();
         }
-        if (_animationLoginController.status != AnimationStatus.completed) {
-          _animationLoginController.forward();
+        if (_animationLoginController.status == AnimationStatus.completed) {
+          _animationLoginController.reverse();
         }
         break;
     }
@@ -180,20 +183,20 @@ class _AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
               ),
             ),
             new Stack(children: [
-              new FadeTransition(
-                opacity: animationFormLogin,
+              new Container(
+                transform: new Matrix4.translationValues(animationFormLogin.value * (animationFormCadastro.status != AnimationStatus.dismissed? -1 : 1), 0.0, 0.0),
                 child: new LoginForm(
                   onChangePage: changePage,
                 ),
               ),
-              new FadeTransition(
-                opacity: animationFormCadastro,
+              new Container(
+                transform: new Matrix4.translationValues(animationFormCadastro.value, 0.0, 0.0),
                 child: new CadastroForm(
                   onChangePage: changePage,
                 ),
               ),
-              new FadeTransition(
-                opacity: animationFormEsqueciSenha,
+              new Container(
+                transform: new Matrix4.translationValues(animationFormEsqueciSenha.value, 0.0, 0.0),
                 child: new EsqueciSenhaForm(
                   onChangePage: changePage,
                 ),

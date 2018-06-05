@@ -56,20 +56,27 @@ class _EsqueciSenhaFormState extends State<EsqueciSenhaForm> {
               color: Color(0xFFC0C4CC),
             ),
           ),
-          new InkWell(
-            onTap: () =>  widget.onChangePage(PAGE_LOGIN),
-            child: new Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                new Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: new Text(
-                    'Já possui a senha?',
-                    style: new TextStyle(color: Color(0xFFC0C4CC)),
-                  ),
+          new Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 66.0),
+            child: new Material(
+              color: Colors.transparent,
+              child: new InkWell(
+                onTap: () =>  widget.onChangePage(PAGE_LOGIN),
+                borderRadius: new BorderRadius.circular(10.0),
+                child: new Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    new Padding(
+                      padding: const EdgeInsets.only(right: 5.0),
+                      child: new Text(
+                        'Já possui a senha?',
+                        style: new TextStyle(color: Color(0xFFC0C4CC)),
+                      ),
+                    ),
+                    new Text('Entrar')
+                  ],
                 ),
-                new Text('Entrar')
-              ],
+              ),
             ),
           ),
         ],
