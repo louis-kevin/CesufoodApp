@@ -1,5 +1,8 @@
 import 'package:cesufood_app/main_page/components/CardProduto.dart';
+import 'package:cesufood_app/service.dart';
 import 'package:flutter/material.dart';
+
+final Service service = new Service();
 
 class DestaquesTab extends StatefulWidget {
   @override
@@ -7,7 +10,7 @@ class DestaquesTab extends StatefulWidget {
 }
 
 class _DestaquesTabState extends State<DestaquesTab> {
-  var produtos = [1, 2, 3, 4, 5, 6, 7];
+  var produtos = service.getProdutosDestaques();
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +19,7 @@ class _DestaquesTabState extends State<DestaquesTab> {
       itemCount: produtos.length,
       itemBuilder: (BuildContext context, int index) {
         return CardProduto(
-          nome: 'teste',
-          urlFoto: 'teste',
-          id: 1,
-          preco: 10.5,
+         produto: produtos[index],
         );
       },
     );
