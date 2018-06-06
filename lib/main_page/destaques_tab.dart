@@ -15,7 +15,7 @@ class _DestaquesTabState extends State<DestaquesTab> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      padding: EdgeInsets.only(top: 36.0, left: 16.0, right: 16.0),
+      padding: const EdgeInsets.only(top: 20.0, bottom: 8.0),
       itemCount: produtos.length,
       itemBuilder: (BuildContext context, int index) {
         return CardProduto(

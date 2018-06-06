@@ -10,18 +10,22 @@ class CardProduto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Card(
+      margin: EdgeInsets.all(8.0),
+      elevation: 2.0,
       child: new Column(
         children: <Widget>[
-
+          new Container(
+            child: new Image.network(produto.urlFoto),
+          ),
           new ButtonTheme.bar( // make buttons use the appropriate styles for cards
             child: new ButtonBar(
               children: <Widget>[
                 new FlatButton(
-                  child: const Text('BUY TICKETS'),
+                  child: const Icon(Icons.favorite_border, color: Color(0xFFFF4444),) ,
                   onPressed: () { /* ... */ },
                 ),
                 new FlatButton(
-                  child: const Text('LISTEN'),
+                  child: new Icon(Icons.add_shopping_cart, color: Theme.of(context).accentColor,) ,
                   onPressed: () { /* ... */ },
                 ),
               ],
