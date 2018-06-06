@@ -2,6 +2,7 @@ import 'package:cesufood_app/auth_page/components/ButtonSubmitAuth.dart';
 import 'package:cesufood_app/auth_page/components/RaFormField.dart';
 import 'package:cesufood_app/auth_page/components/SenhaFormField.dart';
 import 'package:cesufood_app/auth_page/components/TextButtonAuth.dart';
+import 'package:cesufood_app/main_page/tabs_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
@@ -52,7 +53,11 @@ class _LoginFormState extends State<LoginForm> {
                 // TODO Enviar Request
                 Scaffold.of(context).showSnackBar(
                     new SnackBar(content: new Text(inputRAController.text)));
+
               }
+              Navigator.of(context).push(
+                new MaterialPageRoute(builder: (context) => new MainPage()),
+              );
               setState(() {});
             },
           ),

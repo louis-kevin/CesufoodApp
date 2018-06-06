@@ -1,4 +1,5 @@
 import 'package:cesufood_app/auth_page/auth_page.dart';
+import 'package:cesufood_app/main_page/tabs_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(new MyApp());
@@ -22,7 +23,7 @@ ThemeData buildAuthTheme() {
 TextTheme buildTextTheme(TextTheme base, Color color) {
   return base.copyWith(
     body1: base.headline.copyWith(color: color, fontSize: 16.0),
-    caption: base.headline.copyWith(color: color),
+    caption: base.headline.copyWith(color: Colors.grey),
     display1: base.headline.copyWith(color: color),
     button: base.headline.copyWith(color: color),
     headline: base.headline.copyWith(color: color),
@@ -37,10 +38,7 @@ class MyApp extends StatelessWidget {
       title: 'CesufoodApp',
       debugShowCheckedModeBanner: false,
       theme: buildAuthTheme(),
-      home: new Scaffold(
-        body: new AuthPage()
-      ),
-//    home: new TestPage()
+      home: new AuthPage(),
     );
   }
 }

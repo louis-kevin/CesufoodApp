@@ -42,7 +42,7 @@ class _RaFormFieldState extends State<RaFormField> {
         keyboardType: TextInputType.number,
         decoration: new InputDecoration(
           icon: new Icon(
-            Icons.people,
+            Icons.person,
             color: Color(fieldRaError ? 0xFFFF4444 : widget.color),
           ),
           labelText: 'RA',
