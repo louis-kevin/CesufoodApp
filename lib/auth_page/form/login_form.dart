@@ -53,11 +53,10 @@ class _LoginFormState extends State<LoginForm> {
                 // TODO Enviar Request
                 Scaffold.of(context).showSnackBar(
                     new SnackBar(content: new Text(inputRAController.text)));
-
               }
-              Navigator.of(context).push(
-                new MaterialPageRoute(builder: (context) => new MainPage()),
-              );
+
+              Navigator.of(context).pushNamed('/main');
+
               setState(() {});
             },
           ),

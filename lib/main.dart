@@ -39,6 +39,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: buildAuthTheme(),
       home: new AuthPage(),
+      routes: <String, WidgetBuilder> { //5
+        '/main': (BuildContext context) => new MainPage(), //6
+      },
     );
   }
 }
