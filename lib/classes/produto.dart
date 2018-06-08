@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:cached_network_image/cached_network_image.dart';
 
 class Produto {
   int id;
@@ -7,9 +8,10 @@ class Produto {
   double valor;
   String urlFoto;
   bool isFavoritado;
-  var bytes;
+  MemoryImage memoryImageWidget;
 
-  Produto(this.id, this.nome, this.valor, this.urlFoto, [this.isFavoritado = false]);
+  Produto(this.id, this.nome, this.valor, this.urlFoto,
+      [this.isFavoritado = false]);
 
   get valorMask {
     return 'R\$ ' + this.valor.toString().replaceAll('.', ',');
@@ -19,17 +21,21 @@ class Produto {
     return http.readBytes(this.urlFoto);
   }
 
-  get memoryImage async {
-    if(bytes == null){
-      bytes = await this.getImage();
-    }
-    return new MemoryImage(bytes);
+  get memoryImage {
+    return new CachedNetworkImage(
+      imageUrl: this.urlFoto,
+      placeholder: new CircularProgressIndicator(),
+      errorWidget: new Icon(Icons.error),
+    );
   }
 
-  get image async {
-    if(bytes == null){
-      bytes = await this.getImage();
-    }
-    return new Image.memory(bytes);
+  get imageProvider {
+    return new CachedNetworkImageProvider(this.urlFoto);
+  }
+
+  get image {
+    return new Image(
+      image: this.imageProvider,
+    );
   }
 }

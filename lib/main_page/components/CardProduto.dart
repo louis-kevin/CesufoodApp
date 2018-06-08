@@ -1,4 +1,5 @@
 import 'package:cesufood_app/classes/produto.dart';
+import 'package:cesufood_app/produto_page/produto_page.dart';
 import 'package:flutter/material.dart';
 
 class CardProduto extends StatefulWidget {
@@ -6,16 +7,30 @@ class CardProduto extends StatefulWidget {
 
   const CardProduto(this.produto, {Key key}) : super(key: key);
 
+  @override
+  CardProdutoState createState() {
+    return new CardProdutoState();
+  }
+}
+
+class CardProdutoState extends State<CardProduto>
+    with TickerProviderStateMixin {
+  AnimationController fotoAnimationController;
+
   Widget _getImage(url) {
     return new FutureBuilder(
-      future: produto.memoryImage,
+      future: widget.produto.getImage,
       builder: (BuildContext context, snapshot) {
         if (snapshot.hasData) {
-          return new Container(
-            decoration: new BoxDecoration(
-              image: new DecorationImage(
-                fit: BoxFit.fitHeight,
-                image: snapshot.data,
+          fotoAnimationController.forward();
+          return new Opacity(
+            opacity: fotoAnimationController.value,
+            child: new Container(
+              decoration: new BoxDecoration(
+                image: new DecorationImage(
+                  fit: BoxFit.fitHeight,
+                  image: new MemoryImage(snapshot.data),
+                ),
               ),
             ),
           );
@@ -30,34 +45,31 @@ class CardProduto extends StatefulWidget {
     );
   }
 
-  @override
-  CardProdutoState createState() {
-    return new CardProdutoState();
-  }
-}
-
-class CardProdutoState extends State<CardProduto> with TickerProviderStateMixin {
-
-  AnimationController fotoAnimationController;
-
   void _rebuild() {
-    setState(() => {
-
-    });
+    setState(() => {});
   }
 
   @override
   void initState() {
     super.initState();
 
-    fotoAnimationController = AnimationController(vsync: this, duration: Duration(milliseconds: 50))
-    ..addListener(() => _rebuild());
+    fotoAnimationController =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 1000))
+          ..addListener(() => _rebuild());
   }
 
   @override
   void dispose() {
     fotoAnimationController.dispose();
     super.dispose();
+  }
+
+  void viewProduto(context){
+    Navigator.of(context).push(
+      new MaterialPageRoute<Null>(builder: (BuildContext context) {
+        return new ProdutoPage(widget.produto);
+      }),
+    );
   }
 
   @override
@@ -67,30 +79,39 @@ class CardProdutoState extends State<CardProduto> with TickerProviderStateMixin 
       elevation: 2.0,
       child: new Material(
         child: new InkWell(
-          onTap: () => {},
+          onTap: () => viewProduto(context),
           onLongPress: () => {},
           child: new Column(
             children: <Widget>[
-              new Container(
-                height: 150.0,
-                child: widget._getImage(widget.produto.urlFoto),
+              new Hero(
+                tag: 'produto'+widget.produto.id.toString(),
+                child: new Container(
+                  height: 150.0,
+                  decoration: new BoxDecoration(
+                    image: new DecorationImage(
+                      fit: BoxFit.fitHeight,
+                      image: widget.produto.imageProvider,
+                    ),
+                  ),
+                ),
               ),
               new ListTile(
                 title: new Text(widget.produto.nome),
                 subtitle: new Row(
                   children: <Widget>[
-                    new Text(
-                      widget.produto.valorMask
-                    ),
+                    new Text(widget.produto.valorMask),
                     new Expanded(child: Container()),
                     new IconButton(
                       icon: new Icon(
-                        widget.produto.isFavoritado ? Icons.favorite : Icons.favorite_border,
+                        widget.produto.isFavoritado
+                            ? Icons.favorite
+                            : Icons.favorite_border,
                         color: Color(0xFFFF4444),
                       ),
                       onPressed: () {
                         setState(() {
-                          widget.produto.isFavoritado = !widget.produto.isFavoritado;
+                          widget.produto.isFavoritado =
+                              !widget.produto.isFavoritado;
                           //TODO mandar request favoritar
                         });
                       },
