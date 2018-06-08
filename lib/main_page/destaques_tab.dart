@@ -14,14 +14,18 @@ class _DestaquesTabState extends State<DestaquesTab> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.only(top: 20.0, bottom: 8.0),
-      itemCount: produtos.length,
-      itemBuilder: (BuildContext context, int index) {
-        return CardProduto(
-         produto: produtos[index],
-        );
-      },
+    return GridView.count(
+      childAspectRatio: 0.8,
+      crossAxisCount: 2,
+      padding: const EdgeInsets.only(top: 25.0, bottom: 8.0),
+      children: new List.generate(
+        produtos.length,
+        (index) {
+          return CardProduto(
+            produtos[index],
+          );
+        },
+      ),
     );
   }
 }

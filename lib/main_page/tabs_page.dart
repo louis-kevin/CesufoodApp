@@ -97,7 +97,7 @@ class MainPageState extends State<MainPage> with TickerProviderStateMixin {
       children: <Widget>[
         new Expanded(
           child: new Container(
-            decoration: new BoxDecoration(color: Colors.white),
+            decoration: new BoxDecoration(color: Colors.red),
             child: getTab(),
           ),
         ),

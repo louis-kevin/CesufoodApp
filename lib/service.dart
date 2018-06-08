@@ -19,7 +19,7 @@ class Service {
         i,
         'Teste $i',
         i * 1.5,
-        imagens[i]
+        imagens[i],
       ));
     }
 
