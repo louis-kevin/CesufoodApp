@@ -36,7 +36,30 @@ class CardProduto extends StatefulWidget {
   }
 }
 
-class CardProdutoState extends State<CardProduto> {
+class CardProdutoState extends State<CardProduto> with TickerProviderStateMixin {
+
+  AnimationController fotoAnimationController;
+
+  void _rebuild() {
+    setState(() => {
+
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    fotoAnimationController = AnimationController(vsync: this, duration: Duration(milliseconds: 50))
+    ..addListener(() => _rebuild());
+  }
+
+  @override
+  void dispose() {
+    fotoAnimationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Card(

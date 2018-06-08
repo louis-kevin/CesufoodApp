@@ -7,6 +7,7 @@ class Produto {
   double valor;
   String urlFoto;
   bool isFavoritado;
+  var bytes;
 
   Produto(this.id, this.nome, this.valor, this.urlFoto, [this.isFavoritado = false]);
 
@@ -19,10 +20,16 @@ class Produto {
   }
 
   get memoryImage async {
-    return new MemoryImage(await this.getImage);
+    if(bytes == null){
+      bytes = await this.getImage();
+    }
+    return new MemoryImage(bytes);
   }
 
   get image async {
-    return new Image.memory(await this.getImage);
+    if(bytes == null){
+      bytes = await this.getImage();
+    }
+    return new Image.memory(bytes);
   }
 }
