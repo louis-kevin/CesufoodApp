@@ -13,92 +13,41 @@ class ProdutoPage extends StatefulWidget {
   _ProdutoPageState createState() => _ProdutoPageState();
 }
 
-class _ProdutoPageState extends State<ProdutoPage>
-    with TickerProviderStateMixin {
-  AnimationController fotoAnimationController;
-
-  void _rebuild() {
-    setState(() => {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    fotoAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 1000))
-          ..addListener(() => _rebuild());
-  }
-
-  @override
-  void dispose() {
-    fotoAnimationController.dispose();
-    super.dispose();
-  }
-
-  Widget _getImage(url) {
-    return new FutureBuilder(
-      future: widget.produto.getImage,
-      builder: (BuildContext context, snapshot) {
-        if (snapshot.hasData) {
-          fotoAnimationController.forward();
-          return new Opacity(
-            opacity: fotoAnimationController.value,
-            child: new Container(
-              decoration: new BoxDecoration(
-                image: new DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: new MemoryImage(snapshot.data),
-                ),
-              ),
-            ),
-          );
-        } else {
-          return new Center(
-            child: new CircularProgressIndicator(
-              backgroundColor: Theme.of(context).accentColor,
-            ),
-          );
-        }
-      },
-    );
-  }
+class _ProdutoPageState extends State<ProdutoPage> {
 
   @override
   Widget build(BuildContext context) {
     return new Hero(
       tag: 'produto' + widget.produto.id.toString(),
       child: new Scaffold(
-        appBar: new AppBar(
-          elevation: 0.0,
-          backgroundColor: Colors.transparent,
-          actions: <Widget>[
-            new IconButton(
-              icon: new Icon(widget.produto.isFavoritado
-                  ? Icons.favorite
-                  : Icons.favorite_border),
-              onPressed: () => setState(() {
-                    widget.produto.isFavoritado = !widget.produto.isFavoritado;
-                    //TODO mandar request favoritar
-                  }),
-            )
-          ],
-        ),
-        body: new Container(
-          transform: new Matrix4.translationValues(0.0, -80.0, 0.0),
-          child: Column(
-            children: [
-              new Container(
-                height: 264.0,
-                width: double.infinity,
-                decoration: new BoxDecoration(
-                  image: new DecorationImage(
-                    fit: BoxFit.fitHeight,
-                    image: widget.produto.imageProvider,
-                  ),
+        body: new CustomScrollView(
+          slivers: [
+            new SliverAppBar(
+              pinned: false,
+              expandedHeight: 264.0,
+              actions: [
+                new IconButton(
+                  icon: new Icon(widget.produto.isFavoritado
+                      ? Icons.favorite
+                      : Icons.favorite_border),
+                  onPressed: () => setState(
+                        () {
+                          widget.produto.isFavoritado =
+                              !widget.produto.isFavoritado;
+                          //TODO mandar request favoritar
+                        },
+                      ),
+                ),
+              ],
+              flexibleSpace: new FlexibleSpaceBar(
+                background: new Image(
+                  image: widget.produto.imageProvider,
+                  fit: BoxFit.cover,
                 ),
               ),
-              new Container(
+            ),
+            new SliverToBoxAdapter(
+              child: new Container(
                 height: 82.0,
                 width: double.infinity,
                 decoration:
@@ -134,7 +83,7 @@ class _ProdutoPageState extends State<ProdutoPage>
                     new Expanded(child: Container()),
                     new Container(
                       transform:
-                          new Matrix4.translationValues(-16.0, -41.0, 0.0),
+                          new Matrix4.translationValues(-16.0, 41.0, 0.0),
                       child: new FloatingActionButton(
                         onPressed: () => {},
                         child: new Icon(Icons.add_shopping_cart),
@@ -142,9 +91,15 @@ class _ProdutoPageState extends State<ProdutoPage>
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+            new SliverToBoxAdapter(
+              child: new Container(
+                height: 545.0,
+                decoration: BoxDecoration(color: Colors.red),
+              ),
+            )
+          ],
         ),
       ),
     );

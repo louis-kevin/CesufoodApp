@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cesufood_app/classes/produto.dart';
 
 class Service {
@@ -20,6 +22,22 @@ class Service {
         'Teste $i',
         i * 1.5,
         imagens[i],
+      ));
+    }
+
+    return produtos;
+  }
+
+  List<Produto> getProdutos(){
+    List<Produto> produtos = [];
+    var rng = new Random();
+
+    for(int i = 0; i < rng.nextInt(50); i++){
+      produtos.add(new Produto(
+        i,
+        'Teste $i',
+        i * 1.5,
+        imagens[rng.nextInt(4)],
       ));
     }
 

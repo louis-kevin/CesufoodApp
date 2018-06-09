@@ -13,57 +13,7 @@ class CardProduto extends StatefulWidget {
   }
 }
 
-class CardProdutoState extends State<CardProduto>
-    with TickerProviderStateMixin {
-  AnimationController fotoAnimationController;
-
-  Widget _getImage(url) {
-    return new FutureBuilder(
-      future: widget.produto.getImage,
-      builder: (BuildContext context, snapshot) {
-        if (snapshot.hasData) {
-          fotoAnimationController.forward();
-          return new Opacity(
-            opacity: fotoAnimationController.value,
-            child: new Container(
-              decoration: new BoxDecoration(
-                image: new DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: new MemoryImage(snapshot.data),
-                ),
-              ),
-            ),
-          );
-        } else {
-          return new Center(
-            child: new CircularProgressIndicator(
-              backgroundColor: Theme.of(context).accentColor,
-            ),
-          );
-        }
-      },
-    );
-  }
-
-  void _rebuild() {
-    setState(() => {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    fotoAnimationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 1000))
-          ..addListener(() => _rebuild());
-  }
-
-  @override
-  void dispose() {
-    fotoAnimationController.dispose();
-    super.dispose();
-  }
-
+class CardProdutoState extends State<CardProduto> {
   void viewProduto(context){
     Navigator.of(context).push(
       new MaterialPageRoute<Null>(builder: (BuildContext context) {
