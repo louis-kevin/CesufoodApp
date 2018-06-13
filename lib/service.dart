@@ -32,7 +32,7 @@ class Service {
     List<Produto> produtos = [];
     var rng = new Random();
 
-    for(int i = 0; i < rng.nextInt(50); i++){
+    for(int i = 0; i < 50; i++){
       produtos.add(new Produto(
         i,
         'Teste $i',

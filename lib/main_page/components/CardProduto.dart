@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class CardProduto extends StatefulWidget {
   final Produto produto;
+  static String heroTag = 'produto-card-';
 
   const CardProduto(this.produto, {Key key}) : super(key: key);
 
@@ -17,7 +18,7 @@ class CardProdutoState extends State<CardProduto> {
   void viewProduto(context){
     Navigator.of(context).push(
       new MaterialPageRoute<Null>(builder: (BuildContext context) {
-        return new ProdutoPage(widget.produto);
+        return new ProdutoPage(widget.produto, widget.produto.getTagWithPrefix(CardProduto.heroTag));
       }),
     );
   }
@@ -34,7 +35,7 @@ class CardProdutoState extends State<CardProduto> {
           child: new Column(
             children: <Widget>[
               new Hero(
-                tag: 'produto'+widget.produto.id.toString(),
+                tag: widget.produto.getTagWithPrefix(CardProduto.heroTag),
                 child: new Container(
                   height: 150.0,
                   decoration: new BoxDecoration(

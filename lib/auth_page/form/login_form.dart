@@ -22,9 +22,9 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   final TextEditingController inputRAController =
-  new MaskedTextController(mask: '00000000');
+      new MaskedTextController(mask: '00000000');
   final TextEditingController inputSenhaController =
-  new TextEditingController();
+      new TextEditingController();
 
   @override
   void dispose() {
@@ -45,7 +45,9 @@ class _LoginFormState extends State<LoginForm> {
             controller: inputRAController,
           ),
           new SenhaFormField(
-              color: 0xFFC0C4CC, controller: inputSenhaController),
+            color: 0xFFC0C4CC,
+            controller: inputSenhaController,
+          ),
           new ButtonSubmitAuth(
             text: 'LOGIN',
             onTap: () {
@@ -60,7 +62,10 @@ class _LoginFormState extends State<LoginForm> {
               setState(() {});
             },
           ),
-          new TextButtonAuth(onPressed: () => widget.onChangePage(PAGE_ESQUECI_SENHA), firstText: 'Esqueceu a senha?'),
+          new TextButtonAuth(
+            onPressed: () => widget.onChangePage(PAGE_ESQUECI_SENHA),
+            firstText: 'Esqueceu a senha?',
+          ),
           new Padding(
             padding: const EdgeInsets.symmetric(vertical: 28.5),
             child: new Divider(
@@ -68,11 +73,13 @@ class _LoginFormState extends State<LoginForm> {
               color: Color(0xFFC0C4CC),
             ),
           ),
-          new TextButtonAuth(onPressed: () => widget.onChangePage(PAGE_CADASTRO), firstText: 'Não tem conta?', secondText: 'Cadastre-se'),
+          new TextButtonAuth(
+            onPressed: () => widget.onChangePage(PAGE_CADASTRO),
+            firstText: 'Não tem conta?',
+            secondText: 'Cadastre-se',
+          ),
         ],
       ), // We'll build this out in the next steps!
     );
   }
 }
-
-

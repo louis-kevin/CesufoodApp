@@ -38,4 +38,8 @@ class Produto {
       image: this.imageProvider,
     );
   }
+
+  getTagWithPrefix(String prefix){
+    return prefix + this.id.toString();
+  }
 }

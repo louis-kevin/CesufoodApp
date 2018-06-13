@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 class ProdutoPage extends StatefulWidget {
   final Produto produto;
+  final String prevTag;
 
   const ProdutoPage(
-    this.produto, {
+    this.produto, this.prevTag, {
     Key key,
   }) : super(key: key);
 
@@ -18,7 +19,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
   @override
   Widget build(BuildContext context) {
     return new Hero(
-      tag: 'produto' + widget.produto.id.toString(),
+      tag: widget.prevTag,
       child: new Scaffold(
         body: new CustomScrollView(
           slivers: [
