@@ -15,10 +15,11 @@ class ListItemProduto extends StatefulWidget {
 }
 
 class ListItemProdutoState extends State<ListItemProduto> {
-  void viewProduto(context){
+  void viewProduto(context) {
     Navigator.of(context).push(
       new MaterialPageRoute<Null>(builder: (BuildContext context) {
-        return new ProdutoPage(widget.produto, widget.produto.getTagWithPrefix(ListItemProduto.heroTag));
+        return new ProdutoPage(widget.produto,
+            widget.produto.getTagWithPrefix(ListItemProduto.heroTag));
       }),
     );
   }
@@ -32,44 +33,58 @@ class ListItemProdutoState extends State<ListItemProduto> {
           onTap: () => viewProduto(context),
           child: new Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: new CircleAvatar(
-                backgroundImage: widget.produto.imageProvider,
-              ),
-              title: new Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: new Text(widget.produto.nome),
-              ),
-              subtitle: new Row(
-                children: <Widget>[
-                  new Text(widget.produto.valorMask),
-                  new Expanded(child: Container()),
-                  new IconButton(
-                    icon: new Icon(
-                      widget.produto.isFavoritado
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: Color(0xFFFF4444),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        widget.produto.isFavoritado =
-                        !widget.produto.isFavoritado;
-                        //TODO mandar request favoritar
-                      });
-                    },
+            child: new Row(
+              children: <Widget>[
+                new CircleAvatar(
+                  backgroundImage: widget.produto.imageProvider,
+                ),
+                new Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: new Column(
+                    children: <Widget>[
+                      new Text(
+                        widget.produto.nome,
+                        style: TextStyle(color: Colors.black, fontSize: 20.0),
+                      ),
+                      new Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: new Container(
+                            transform: Matrix4.translationValues(-10.0, 0.0, 0.0),
+                            child: new Text(
+                              widget.produto.valorMask,
+                              style:
+                                  TextStyle(color: Colors.black.withOpacity(0.5)),
+                            )),
+                      ),
+                    ],
                   ),
-                  new IconButton(
-                    icon: new Icon(
-                      Icons.add_shopping_cart,
-                      color: Theme.of(context).accentColor,
-                    ),
-                    onPressed: () {
-                      /* ... */
-                    },
+                ),
+                new Expanded(child: Container()),
+                new IconButton(
+                  icon: new Icon(
+                    widget.produto.isFavoritado
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: Color(0xFFFF4444),
                   ),
-                ],
-              ),
+                  onPressed: () {
+                    setState(() {
+                      widget.produto.isFavoritado =
+                          !widget.produto.isFavoritado;
+                      //TODO mandar request favoritar
+                    });
+                  },
+                ),
+                new IconButton(
+                  icon: new Icon(
+                    Icons.add_shopping_cart,
+                    color: Theme.of(context).accentColor,
+                  ),
+                  onPressed: () {
+                    /* ... */
+                  },
+                ),
+              ],
             ),
           ),
         ),

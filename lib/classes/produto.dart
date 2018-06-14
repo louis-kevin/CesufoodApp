@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -8,10 +10,22 @@ class Produto {
   double valor;
   String urlFoto;
   bool isFavoritado;
+  bool isDestaque;
   MemoryImage memoryImageWidget;
 
-  Produto(this.id, this.nome, this.valor, this.urlFoto,
+  Produto(this.id, this.nome, this.valor, this.urlFoto, this.isDestaque,
       [this.isFavoritado = false]);
+
+  static makeProdutoFromJson(data) {
+    return new Produto(
+      data['id'],
+      data['nome'],
+      data['valor'],
+      data['urlFoto'],
+      data['isDestaque'] == 1,
+      data['isFavoritado'] == 1,
+    );
+  }
 
   get valorMask {
     return 'R\$ ' + this.valor.toString().replaceAll('.', ',');
@@ -39,7 +53,7 @@ class Produto {
     );
   }
 
-  getTagWithPrefix(String prefix){
+  getTagWithPrefix(String prefix) {
     return prefix + this.id.toString();
   }
 }

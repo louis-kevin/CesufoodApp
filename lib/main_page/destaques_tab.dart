@@ -10,22 +10,25 @@ class DestaquesTab extends StatefulWidget {
 }
 
 class _DestaquesTabState extends State<DestaquesTab> {
-  var produtos = service.getProdutosDestaques();
 
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
+  Widget buildGridView(produtos){
+    return  GridView.count(
       childAspectRatio: 0.8,
       crossAxisCount: 2,
       padding: const EdgeInsets.only(top: 25.0, bottom: 8.0),
       children: new List.generate(
         produtos.length,
-        (index) {
+            (index) {
           return CardProduto(
             produtos[index],
           );
         },
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return service.buildProdutos(service.getProdutosDestaques(), buildGridView);
   }
 }

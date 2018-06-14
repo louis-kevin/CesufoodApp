@@ -1,5 +1,6 @@
 import 'package:cesufood_app/auth_page/auth_page.dart';
 import 'package:cesufood_app/main_page/tabs_page.dart';
+import 'package:cesufood_app/service.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(new MyApp());
@@ -32,8 +33,10 @@ TextTheme buildTextTheme(TextTheme base, Color color) {
 }
 
 class MyApp extends StatelessWidget {
+  Service service = new Service();
   @override
   Widget build(BuildContext context) {
+    service.insertProdutos();
     return new MaterialApp(
       title: 'CesufoodApp',
       debugShowCheckedModeBanner: false,
