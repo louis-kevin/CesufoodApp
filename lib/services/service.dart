@@ -13,6 +13,7 @@ class Service {
   final cache = new MapCache();
 
   _updateToken(tokenFromHeader, tokenFromBody) {
+    // TODO Verificar se esta salvando no cache
     if (tokenFromBody != null) {
       this.cache.set(JWT_TOKEN_NAME, tokenFromBody);
     } else if (tokenFromHeader != null) {

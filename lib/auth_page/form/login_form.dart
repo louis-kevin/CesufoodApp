@@ -68,7 +68,7 @@ class _LoginFormState extends State<LoginForm> {
       return new Container(
         width: double.infinity,
         child: Center(
-          child: new CircularProgressIndicator(),
+          child: new CircularProgressIndicator(),// TODO alinhar loading
         ),
       );
     }
