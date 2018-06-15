@@ -6,7 +6,9 @@ class RaFormField extends StatefulWidget {
   final color;
   final TextEditingController controller;
 
-  const RaFormField({Key key, this.color = 0xFFC0C4CC, this.controller}) : super(key: key);
+  final String errorText;
+
+  const RaFormField({Key key, this.color = 0xFFC0C4CC, this.controller, this.errorText = ''}) : super(key: key);
 
   @override
   _RaFormFieldState createState() => new _RaFormFieldState();
@@ -45,6 +47,7 @@ class _RaFormFieldState extends State<RaFormField> {
             Icons.person,
             color: Color(fieldRaError ? 0xFFFF4444 : widget.color),
           ),
+          errorText: widget.errorText,
           labelText: 'RA',
           labelStyle: new TextStyle(
             color: Color(fieldRaError ? 0xFFFF4444 : widget.color),

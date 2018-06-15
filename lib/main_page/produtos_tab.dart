@@ -1,5 +1,5 @@
 import 'package:cesufood_app/main_page/components/ListItem.dart';
-import 'package:cesufood_app/service.dart';
+import 'package:cesufood_app/main_page/service.dart';
 import 'package:flutter/material.dart';
 
 final Service service = new Service();

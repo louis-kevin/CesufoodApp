@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:cesufood_app/auth_page/components/ButtonSubmitAuth.dart';
 import 'package:cesufood_app/auth_page/components/RaFormField.dart';
 import 'package:cesufood_app/auth_page/components/SenhaFormField.dart';
 import 'package:cesufood_app/auth_page/components/TextButtonAuth.dart';
-import 'package:cesufood_app/main_page/tabs_page.dart';
+import 'package:cesufood_app/services/auth_service.dart';
+import 'package:cesufood_app/services/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
@@ -26,6 +29,12 @@ class _LoginFormState extends State<LoginForm> {
   final TextEditingController inputSenhaController =
       new TextEditingController();
 
+  String errorInputRa = '';
+  String errorInputSenha = '';
+  bool loading = false;
+
+  AuthService authService;
+
   @override
   void dispose() {
     // Clean up the controller when the Widget is disposed
@@ -34,8 +43,52 @@ class _LoginFormState extends State<LoginForm> {
     super.dispose();
   }
 
+  sendLoginForm(context) async {
+    Object data = {
+      'ra': inputRAController.text,
+      'senha': inputSenhaController.text
+    };
+    ParsedResponse response = await this.authService.login(data);
+
+    if (response.isOk()) {
+      errorInputRa = '';
+      errorInputSenha = '';
+      Navigator.of(context).pushNamed('/main');
+    }
+
+    if (response.isBadRequest()) {
+      errorInputRa = response.getFirstErrorInput('ra');
+      errorInputSenha = response.getFirstErrorInput('senha');
+    }
+    setState(() { loading = false; });
+  }
+
+  getButtom(context){
+    if(loading){
+      return new Container(
+        width: double.infinity,
+        child: Center(
+          child: new CircularProgressIndicator(),
+        ),
+      );
+    }
+
+    return new ButtonSubmitAuth(
+      text: 'LOGIN',
+      onTap: () async {
+        if (!_formKey.currentState.validate()) {
+          setState(() {});
+          return false;
+        }
+        setState(() { loading = true; });
+        sendLoginForm(context);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    this.authService = new AuthService(context);
     return new Form(
       key: _formKey,
       child: new Column(
@@ -43,25 +96,14 @@ class _LoginFormState extends State<LoginForm> {
           new RaFormField(
             color: 0xFFC0C4CC,
             controller: inputRAController,
+            errorText: errorInputRa,
           ),
           new SenhaFormField(
             color: 0xFFC0C4CC,
             controller: inputSenhaController,
+            errorText: errorInputSenha,
           ),
-          new ButtonSubmitAuth(
-            text: 'LOGIN',
-            onTap: () {
-              if (_formKey.currentState.validate()) {
-                // TODO Enviar Request
-                Scaffold.of(context).showSnackBar(
-                    new SnackBar(content: new Text(inputRAController.text)));
-              }
-
-              Navigator.of(context).pushNamed('/main');
-
-              setState(() {});
-            },
-          ),
+          getButtom(context),
           new TextButtonAuth(
             onPressed: () => widget.onChangePage(PAGE_ESQUECI_SENHA),
             firstText: 'Esqueceu a senha?',

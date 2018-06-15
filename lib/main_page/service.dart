@@ -79,10 +79,11 @@ class Service {
     await _loadDb();
 
     List<Map> produtosDb = await this.db.rawQuery('SELECT * FROM produtos');
-    print(produtosDb);
+
     produtosDb.forEach((produtoDb){
       this.produtos.add(Produto.makeProdutoFromJson(produtoDb));
     });
+
     this.db.close();
   }
 

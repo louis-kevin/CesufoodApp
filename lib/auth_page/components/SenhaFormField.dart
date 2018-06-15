@@ -5,8 +5,9 @@ import 'package:flutter/widgets.dart';
 class SenhaFormField extends StatefulWidget {
   final color;
   final TextEditingController controller;
+  final String errorText;
 
-  const SenhaFormField({Key key, this.color = 0xFFC0C4CC, this.controller}) : super(key: key);
+  const SenhaFormField({Key key, this.color = 0xFFC0C4CC, this.controller, this.errorText = ''}) : super(key: key);
 
   @override
   _SenhaFormFieldState createState() => new _SenhaFormFieldState();
@@ -39,6 +40,7 @@ class _SenhaFormFieldState extends State<SenhaFormField> {
             color: Color(fieldSenhaError ? 0xFFFF4444 : widget.color),
           ),
           labelText: 'Senha',
+          errorText: widget.errorText,
           labelStyle: new TextStyle(
               color: Color(fieldSenhaError ? 0xFFFF4444 : widget.color)),
           counterStyle: new TextStyle(
