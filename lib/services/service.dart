@@ -25,15 +25,15 @@ class Service {
   }
 
   Future<Object> _getHeaders() async {
-    var token = await _getToken();
+    var token = await getToken();
     return {
-      HttpHeaders.AUTHORIZATION: token,
+      HttpHeaders.AUTHORIZATION: 'Bearer ' + token,
       HttpHeaders.ACCEPT: 'application/json',
       HttpHeaders.CONTENT_TYPE: 'application/json'
     };
   }
 
-  Future<String> _getToken() async {
+  Future<String> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(JWT_TOKEN_NAME);
   }
@@ -82,6 +82,7 @@ class Service {
       _getUrl(url, params),
       headers: await _getHeaders(),
     );
+    print(await _getHeaders());
     return _makeResponse(response);
   }
 }
