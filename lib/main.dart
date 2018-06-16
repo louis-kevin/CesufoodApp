@@ -1,9 +1,11 @@
 import 'package:cesufood_app/auth_page/auth_page.dart';
 import 'package:cesufood_app/main_page/tabs_page.dart';
 import 'package:cesufood_app/main_page/service.dart';
+import 'package:cesufood_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:quiver/cache.dart';
 
-void main() => runApp(new MyApp());
+void main() => runApp(new CesufoodApp());
 
 ThemeData buildAuthTheme() {
   final ThemeData base = ThemeData();
@@ -32,11 +34,18 @@ TextTheme buildTextTheme(TextTheme base, Color color) {
   );
 }
 
-class MyApp extends StatelessWidget {
-  Service service = new Service();
+class CesufoodApp extends StatelessWidget {
+
+  isAthenticated(context){
+    var authService = new AuthService(context);
+
+    authService.checkAuthentication().then((token) => print(token));
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    service.insertProdutos();
+    isAthenticated(context);
     return new MaterialApp(
       title: 'CesufoodApp',
       debugShowCheckedModeBanner: false,

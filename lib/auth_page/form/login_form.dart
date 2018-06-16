@@ -53,7 +53,8 @@ class _LoginFormState extends State<LoginForm> {
     if (response.isOk()) {
       errorInputRa = '';
       errorInputSenha = '';
-      Navigator.of(context).pushNamed('/main');
+      //Navigator.of(context).pushNamed('/main');
+      await this.authService.login(data);
     }
 
     if (response.isBadRequest()) {
@@ -66,6 +67,7 @@ class _LoginFormState extends State<LoginForm> {
   getButtom(context){
     if(loading){
       return new Container(
+        padding: new EdgeInsets.symmetric(vertical: 34.6),
         width: double.infinity,
         child: Center(
           child: new CircularProgressIndicator(),// TODO alinhar loading

@@ -5,19 +5,22 @@ import 'package:cesufood_app/config.dart';
 import 'package:flutter/material.dart';
 import 'package:quiver/cache.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Service {
   Service(this.context);
 
   BuildContext context;
+
   final cache = new MapCache();
 
-  _updateToken(tokenFromHeader, tokenFromBody) {
+  _updateToken(tokenFromHeader, tokenFromBody) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     // TODO Verificar se esta salvando no cache
     if (tokenFromBody != null) {
-      this.cache.set(JWT_TOKEN_NAME, tokenFromBody);
+      await prefs.setString(JWT_TOKEN_NAME, tokenFromBody);
     } else if (tokenFromHeader != null) {
-      this.cache.set(JWT_TOKEN_NAME, tokenFromHeader);
+      await prefs.setString(JWT_TOKEN_NAME, tokenFromHeader);
     }
   }
 
@@ -31,7 +34,8 @@ class Service {
   }
 
   Future<String> _getToken() async {
-    return await this.cache.get(JWT_TOKEN_NAME).catchError(() => '');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(JWT_TOKEN_NAME);
   }
 
   String _getUrl(String url, [Map<String, String> params]) {
