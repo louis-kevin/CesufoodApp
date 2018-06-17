@@ -17,6 +17,7 @@ class BottomTabsBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
       width: double.infinity,
+      alignment: Alignment.center,
       child: new BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: onChange,

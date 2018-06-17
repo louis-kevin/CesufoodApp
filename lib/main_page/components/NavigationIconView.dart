@@ -17,7 +17,7 @@ class NavigationIconView {
         ) {
     _animation = new CurvedAnimation(
       parent: controller,
-      curve: const Interval(0.5, 1.0, curve: Curves.fastOutSlowIn),
+      curve: const Interval(0.0, 1.0, curve: Curves.fastOutSlowIn),
     );
   }
 
@@ -27,7 +27,6 @@ class NavigationIconView {
   CurvedAnimation _animation;
 
   FadeTransition transition(BuildContext context) {
-
     return new FadeTransition(
       opacity: _animation,
       child: new SlideTransition(

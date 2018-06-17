@@ -1,4 +1,5 @@
 import 'package:cesufood_app/classes/produto.dart';
+import 'package:cesufood_app/components/FavoritarButton.dart';
 import 'package:cesufood_app/produto_page/produto_page.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +16,11 @@ class CardProduto extends StatefulWidget {
 }
 
 class CardProdutoState extends State<CardProduto> {
-  void viewProduto(context){
+  void viewProduto(context) {
     Navigator.of(context).push(
       new MaterialPageRoute<Null>(builder: (BuildContext context) {
-        return new ProdutoPage(widget.produto, widget.produto.getTagWithPrefix(CardProduto.heroTag));
+        return new ProdutoPage(widget.produto,
+            widget.produto.getTagWithPrefix(CardProduto.heroTag));
       }),
     );
   }
@@ -26,7 +28,6 @@ class CardProdutoState extends State<CardProduto> {
   @override
   Widget build(BuildContext context) {
     return new Card(
-      margin: EdgeInsets.all(8.0),
       elevation: 2.0,
       child: new Material(
         child: new InkWell(
@@ -40,7 +41,7 @@ class CardProdutoState extends State<CardProduto> {
                   height: 150.0,
                   decoration: new BoxDecoration(
                     image: new DecorationImage(
-                      fit: BoxFit.fitHeight,
+                      fit: BoxFit.fitWidth,
                       image: widget.produto.imageProvider,
                     ),
                   ),
@@ -52,20 +53,9 @@ class CardProdutoState extends State<CardProduto> {
                   children: <Widget>[
                     new Text(widget.produto.valorMask),
                     new Expanded(child: Container()),
-                    new IconButton(
-                      icon: new Icon(
-                        widget.produto.isFavoritado
-                            ? Icons.favorite
-                            : Icons.favorite_border,
-                        color: Color(0xFFFF4444),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          widget.produto.isFavoritado =
-                              !widget.produto.isFavoritado;
-                          //TODO mandar request favoritar
-                        });
-                      },
+                    new FavoritarProdutoButton(
+                      widget.produto,
+                      color: Color(0xFFFF4444),
                     ),
                     new IconButton(
                       icon: new Icon(

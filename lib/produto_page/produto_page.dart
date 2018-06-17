@@ -43,7 +43,7 @@ class _ProdutoPageState extends State<ProdutoPage> {
                     ),
                   ),
                   new Container(
-                    height: 85.0,
+                    height: 80.0,
                     decoration: BoxDecoration(color: Colors.black.withOpacity(0.2)),
                   ),
                 ],
