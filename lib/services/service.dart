@@ -34,7 +34,7 @@ class Service {
     return prefs.getString(JWT_TOKEN_NAME);
   }
 
-  String _makeUrl(String url, [Map<String, String> params]) {
+  String _makeUrl(String url, [Map<String, dynamic> params]) {
     url = url.trim();
     if (url[0] == '/') {
       url = url.substring(1);
@@ -50,7 +50,7 @@ class Service {
           url += '&';
         }
 
-        url += key + '=' + value;
+        url += key + '=' + value.toString();
 
       });
     }
@@ -79,7 +79,7 @@ class Service {
     return _makeResponse(response);
   }
 
-  get(url, [Map<String, String> params]) async {
+  get(url, [Map<String, dynamic> params]) async {
     var response = await http.get(
       _makeUrl(url, params),
       headers: await _makeHeaders(),
@@ -95,10 +95,13 @@ class ParsedResponse {
   var data;
   bool success;
   int type;
+  int page;
+  int lastPage;
 
   static const OK = 200;
   static const BAD_REQUEST = 400;
   static const UNAUTHORIZED = 401;
+
   static const INTERNAL = 401;
 
   BuildContext context;
@@ -107,6 +110,8 @@ class ParsedResponse {
     this.message = this.response.containsKey('message') ? this.response['message'] : '';
     this.data = this.response['data'];
     this.success = this.response['success'];
+    this.page = this.response['meta'] != null ? this.response['meta']['current_page'] : 1;
+    this.lastPage = this.response['meta'] != null ? this.response['meta']['last_page'] : 1;
     if (this.isOk()) {
       this.type = ParsedResponse.OK;
     } else if (this.isBadRequest()) {
@@ -120,6 +125,7 @@ class ParsedResponse {
     }
   }
 
+
   bool isOk() => this.code >= 200 && this.code <= 300;
 
   bool isBadRequest() => this.code == ParsedResponse.BAD_REQUEST;
@@ -127,6 +133,8 @@ class ParsedResponse {
   bool isUnauthorized() => this.code == ParsedResponse.UNAUTHORIZED;
 
   getData() => this.data;
+  getPage() => this.page;
+  getLastPage() => this.lastPage;
 
   String getMessage() => this.message;
 
@@ -155,4 +163,5 @@ class ParsedResponse {
     }
     return this.getErrorsInput(input)[0];
   }
+
 }

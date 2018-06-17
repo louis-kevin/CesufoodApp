@@ -23,7 +23,7 @@ class _FavoritarProdutoButtonState extends State<FavoritarProdutoButton> {
       widget.produto.isFavoritado = !widget.produto.isFavoritado;
     });
     widget.produto.toogleFavorito().then((data) {
-      var message = data ? 'favoritado' : 'desfavortiado';
+      var message = widget.produto.nome + (data ? ' favoritado' : ' desfavortiado');
       if (showSnackBar) {
         Scaffold.of(context).showSnackBar(
               SnackBar(

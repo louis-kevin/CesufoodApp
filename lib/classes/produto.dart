@@ -22,7 +22,7 @@ class Produto {
       data['nome'],
       data['valor'].toDouble(),
       data['fotos'][0],
-      false,
+      data['is_destaque'],
       data['is_favoritado'],
     );
   }
@@ -61,7 +61,6 @@ class Produto {
     ProdutoService service = new ProdutoService();
 
     ParsedResponse response = await service.post('produto/$id');
-    print( response.getData());
     this.isFavoritado = response.getData()['is_favoritado'];
 
     return response.getData()['is_favoritado'];

@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 class ProdutoService extends Service {
   ProdutoService([BuildContext context]) : super(context);
 
-  Future listProdutos()async {
-    ParsedResponse response = await this.get('produto');
+  Future listProdutos([page = 1])async {
+    ParsedResponse response = await this.get('produto', {'page': page, 'search': 'Dr'});
     var produtos = [];
     for(var produtoDb in response.getData()){
       produtos.add(Produto.fromMap(produtoDb));
     }
 
-    return produtos;
+    return {'produtos': produtos, 'page': response.getPage(), 'lastPage': response.getLastPage()};
   }
 
 }
