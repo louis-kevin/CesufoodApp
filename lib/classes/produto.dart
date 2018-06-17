@@ -1,5 +1,5 @@
-import 'dart:convert';
-
+import 'package:cesufood_app/services/produto_service.dart';
+import 'package:cesufood_app/services/service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
@@ -16,14 +16,14 @@ class Produto {
   Produto(this.id, this.nome, this.valor, this.urlFoto, this.isDestaque,
       [this.isFavoritado = false]);
 
-  static makeProdutoFromJson(data) {
+  static fromMap(data) {
     return new Produto(
       data['id'],
       data['nome'],
-      data['valor'],
-      data['urlFoto'],
-      data['isDestaque'] == 1,
-      data['isFavoritado'] == 1,
+      data['valor'].toDouble(),
+      data['fotos'][0],
+      false,
+      data['is_favoritado'],
     );
   }
 
@@ -55,5 +55,16 @@ class Produto {
 
   getTagWithPrefix(String prefix) {
     return prefix + this.id.toString();
+  }
+
+  toogleFavorito()async {
+    ProdutoService service = new ProdutoService();
+
+    ParsedResponse response = await service.post('produto/$id');
+    print( response.getData());
+    this.isFavoritado = response.getData()['is_favoritado'];
+
+    return response.getData()['is_favoritado'];
+
   }
 }

@@ -38,12 +38,10 @@ class CesufoodApp extends StatelessWidget {
     return new FutureBuilder(
       future: authService.checkAuthentication(),
       builder: (_, snapshot){
-        print(snapshot.error);
-        print(snapshot.data);
-        if(snapshot.hasData && snapshot.data){
-          return MainPage();
+        if(snapshot.hasData){
+          return snapshot.data ? MainPage() : AuthPage();
         }else{
-          return AuthPage();
+          return new Container();
         }
       },
     );

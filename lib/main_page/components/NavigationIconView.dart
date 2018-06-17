@@ -6,9 +6,7 @@ class NavigationIconView {
     String title,
     Widget tabContent,
     TickerProvider vsync,
-  }) : _icon = icon,
-        _title = title,
-        _tabContent = tabContent,
+  }) :  _tabContent = tabContent,
         item = new BottomNavigationBarItem(
           icon: icon,
           title: new Text(title),
@@ -23,9 +21,7 @@ class NavigationIconView {
     );
   }
 
-  final Widget _icon;
   final Widget _tabContent;
-  final String _title;
   final BottomNavigationBarItem item;
   final AnimationController controller;
   CurvedAnimation _animation;

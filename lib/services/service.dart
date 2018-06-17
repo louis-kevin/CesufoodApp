@@ -3,20 +3,16 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:cesufood_app/config.dart';
 import 'package:flutter/material.dart';
-import 'package:quiver/cache.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Service {
-  Service(this.context);
+  Service([this.context]);
 
   BuildContext context;
 
-  final cache = new MapCache();
-
   _updateToken(tokenFromHeader, tokenFromBody) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    // TODO Verificar se esta salvando no cache
     if (tokenFromBody != null) {
       await prefs.setString(JWT_TOKEN_NAME, tokenFromBody);
     } else if (tokenFromHeader != null) {
@@ -24,7 +20,7 @@ class Service {
     }
   }
 
-  Future<Object> _getHeaders() async {
+  Future<Object> _makeHeaders() async {
     var token = await getToken();
     return {
       HttpHeaders.AUTHORIZATION: 'Bearer ' + token,
@@ -38,7 +34,7 @@ class Service {
     return prefs.getString(JWT_TOKEN_NAME);
   }
 
-  String _getUrl(String url, [Map<String, String> params]) {
+  String _makeUrl(String url, [Map<String, String> params]) {
     url = url.trim();
     if (url[0] == '/') {
       url = url.substring(1);
@@ -61,28 +57,33 @@ class Service {
     return URL_BASE + '/' + url;
   }
 
+  _makeBody([Object data]){
+    if(data == null){
+      return null;
+    }
+    return json.encode(data);
+  }
+
   _makeResponse(http.Response response) {
     var body = json.decode(response.body);
     _updateToken(response.headers['new_token'], body['token']);
-
     return ParsedResponse(this.context, response.statusCode, body);
   }
 
-  post(url, Object data) async {
+  post(url, [Object data]) async {
     var response = await http.post(
-      _getUrl(url),
-      headers: await _getHeaders(),
-      body: json.encode(data),
+      _makeUrl(url),
+      headers: await _makeHeaders(),
+      body: _makeBody(data),
     );
     return _makeResponse(response);
   }
 
   get(url, [Map<String, String> params]) async {
     var response = await http.get(
-      _getUrl(url, params),
-      headers: await _getHeaders(),
+      _makeUrl(url, params),
+      headers: await _makeHeaders(),
     );
-    print(await _getHeaders());
     return _makeResponse(response);
   }
 }
@@ -91,7 +92,7 @@ class ParsedResponse {
   int code;
   String message;
   Map<String, dynamic> response;
-  Map<String, dynamic> data;
+  var data;
   bool success;
   int type;
 
@@ -125,7 +126,7 @@ class ParsedResponse {
 
   bool isUnauthorized() => this.code == ParsedResponse.UNAUTHORIZED;
 
-  Map<String, dynamic> getData() => this.data;
+  getData() => this.data;
 
   String getMessage() => this.message;
 

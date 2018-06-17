@@ -57,7 +57,6 @@ class Service {
 
     var rng = new Random();
     await this.db.transaction((txn) async {
-      print('Begin transaction');
       for (int i = 0; i < 50; i++) {
         await txn.rawInsert(
             'INSERT INTO produtos(nome, urlFoto, valor, isFavoritado, isDestaque) VALUES( ?, ?, ?, ?, ?)',
@@ -69,7 +68,6 @@ class Service {
               rng.nextInt(2) == 1 ? 1 : 0
             ]);
       }
-      print('End transaction');
     });
 
     this.db.close();
@@ -81,7 +79,7 @@ class Service {
     List<Map> produtosDb = await this.db.rawQuery('SELECT * FROM produtos');
 
     produtosDb.forEach((produtoDb){
-      this.produtos.add(Produto.makeProdutoFromJson(produtoDb));
+      this.produtos.add(Produto.fromMap(produtoDb));
     });
 
     this.db.close();

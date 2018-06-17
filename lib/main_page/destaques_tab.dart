@@ -29,6 +29,6 @@ class _DestaquesTabState extends State<DestaquesTab> {
 
   @override
   Widget build(BuildContext context) {
-    return service.buildProdutos(service.getProdutosDestaques(), buildGridView);
+    return Container();
   }
 }

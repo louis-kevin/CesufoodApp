@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:cesufood_app/auth_page/components/ButtonSubmitAuth.dart';
 import 'package:cesufood_app/auth_page/components/RaFormField.dart';
 import 'package:cesufood_app/auth_page/components/SenhaFormField.dart';
