@@ -46,20 +46,23 @@ class _LoginFormState extends State<LoginForm> {
       'ra': inputRAController.text,
       'senha': inputSenhaController.text
     };
-    ParsedResponse response = await this.authService.login(data);
+    this.authService.login(data).then((response) async {
+      if (response.isOk()) {
+        errorInputRa = '';
+        errorInputSenha = '';
+        Navigator.of(context).pushNamed('/main');
+      }
 
-    if (response.isOk()) {
-      errorInputRa = '';
-      errorInputSenha = '';
-      //Navigator.of(context).pushNamed('/main');
-      await this.authService.login(data);
-    }
-
-    if (response.isBadRequest()) {
-      errorInputRa = response.getFirstErrorInput('ra');
-      errorInputSenha = response.getFirstErrorInput('senha');
-    }
-    setState(() { loading = false; });
+      if (response.isBadRequest()) {
+        errorInputRa = response.getFirstErrorInput('ra');
+        errorInputSenha = response.getFirstErrorInput('senha');
+      }
+    }).catchError((error){
+      print(error);
+      Scaffold.of(context).showSnackBar(SnackBar(
+        content: new Text('Ocorreu um erro'),
+      ));
+    }).whenComplete(() => setState(() { loading = false; }));
   }
 
   getButtom(context){

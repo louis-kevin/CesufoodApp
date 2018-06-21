@@ -20,10 +20,24 @@ class Service {
     }
   }
 
+  _logout()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(JWT_TOKEN_NAME);
+    if(context != null){
+      Navigator.of(context).pushNamed('/login');
+    }
+  }
+
   Future<Object> _makeHeaders() async {
     var token = await getToken();
+    if(token != null){
+      return {
+        HttpHeaders.AUTHORIZATION: 'Bearer $token',
+        HttpHeaders.ACCEPT: 'application/json',
+        HttpHeaders.CONTENT_TYPE: 'application/json'
+      };
+    }
     return {
-      HttpHeaders.AUTHORIZATION: 'Bearer ' + token,
       HttpHeaders.ACCEPT: 'application/json',
       HttpHeaders.CONTENT_TYPE: 'application/json'
     };
@@ -67,6 +81,12 @@ class Service {
   _makeResponse(http.Response response) {
     var body = json.decode(response.body);
     _updateToken(response.headers['new_token'], body['token']);
+
+    if(response.statusCode == 401 && response.headers['www-authenticate'] == 'jwt-auth'){
+      _logout();
+      return null;
+    }
+
     return ParsedResponse(this.context, response.statusCode, body);
   }
 
@@ -86,6 +106,8 @@ class Service {
     );
     return _makeResponse(response);
   }
+
+
 }
 
 class ParsedResponse {
@@ -118,10 +140,10 @@ class ParsedResponse {
       this.type = ParsedResponse.BAD_REQUEST;
     } else if (this.isUnauthorized()) {
       this.type = ParsedResponse.UNAUTHORIZED;
+      throw new Exception(this.message);
     } else {
       this.type = ParsedResponse.INTERNAL;
-      Scaffold.of(context).showSnackBar(
-          new SnackBar(content: new Text(this.message)));
+
     }
   }
 

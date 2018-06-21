@@ -57,6 +57,7 @@ class CesufoodApp extends StatelessWidget {
       home: isAthenticated(context),
       routes: <String, WidgetBuilder> { //5
         '/main': (BuildContext context) => new MainPage(), //6
+        '/login': (BuildContext context) => new AuthPage(), //6
       },
     );
   }
